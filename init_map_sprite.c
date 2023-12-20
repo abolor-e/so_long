@@ -73,7 +73,7 @@ ft_player_movement(t_game *init_game, int y, int x)
 int    ft_check_key(int key, t_game *init_game)
 {
     if (key == KEY_ESC)
-        //ft_quit();
+        ft_handle_error("Key ESC pressed!\n", init_game);
     else if (key == KEY_A)
         ft_player_movement(init_game, init_game->player.y, init_game->player.x - 1);
     else if (key == KEY_W)

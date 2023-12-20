@@ -1,24 +1,40 @@
-NAME				= so_long
+NAME = so_long
 
+LIBFT = ./libft/libft.a
 
-CC					= cc
--------------------------------------------------------------------------
-# Compiling flags!
-CFLAGS				= -Wall -Werror -Wextra
-MINILIBX_FLAGS		= -lmx -lXext -lX11
+# Don't forget to add gnl to libft!
 
--------------------------------------------------------------------------
-# Library
-LIBFT				= libft/libft.a
+SRCS =	so_long.c	\
+		init_map.c	\
+		map_check.c	\
+		init_window.c	\
+		init_map_sprite.c	\
+		utils.c
 
--------------------------------------------------------------------------
-REMOVE				= rm -rf
+CFLAGS =  -Wall -Werror -Wextra
+CC		= cc
 
--------------------------------------------------------------------------
-SRCS				= 
+RM		= rm -rf
 
+OBJS = $(SRCS:.c=.o)
 
-all:				${LIBFT} ${NAME}
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
-${NAME}:			${CC} ${CFLAGS} ${MINILIBX_FLAGS} ${SRCS} ${LIBFT} -o ${NAME}
+all: $(NAME)
 
+${LIBFT}:
+	${MAKE} -C ./libft
+
+$(NAME): $(OBJECTS) ${LIBFT}
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+clean:
+	${MAKE} clean -C ./libft
+	${RM} ${OBJS}
+
+fclean: clean
+	${MAKE} fclean -C ./libft
+	${RM} $(NAME)
+
+re: fclean $(NAME)

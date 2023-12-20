@@ -2,9 +2,8 @@
 # define SO_LONG_H
 
 # include <unistd.h>
+# include <stdlib.h>
 # include <fcntl.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
 # include <mlx.h>
 
 // Usage of IMG width and height???
@@ -16,6 +15,16 @@
 # define KEY_A		97
 # define KEY_W		119
 # define KEY_ESC	65307
+
+# define KEY_RELEASE		3
+# define KEY_RELEASE_MASK	2
+# define DESTROY_NOTIFY		17
+# define NO_EVENT_MASK		0
+# define EXPOSE				12
+# define EXPOSURE_MASK		32768
+
+# define FAILURE	-1
+# define SUCCESS	0
 
 typedef struct	s_player
 {
@@ -56,10 +65,13 @@ typedef struct	s_game_instance
 {
 	void		*mlx_ptr;
 	void		*mlx_window;
+	int			game_alloc;
 	t_map		map;
 	t_map_items	count;
 	t_graphic	graphic;
 	t_player	player
 }				t_game;
+
+
 
 #endif
