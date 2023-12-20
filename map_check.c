@@ -17,18 +17,18 @@ void    ft_check_row_column(t_game *init_game)
     i = 0;
     while (i < init_game->map.rows)
     {
-        if (init_game->map.filled[i][0] != '1')
+        if (init_game->map.grid[i][0] != '1')
             //ft_error("Error: Map should be surrounded by walls");
-        else if (init_game->map.filled[i][init_game->map.columns - 1] != '1')
+        else if (init_game->map.grid[i][init_game->map.columns - 1] != '1')
             //ft_error("");
         i++;
     }
     i = 0;
     while (i < init_game->map.columns)
     {
-        if (init_game->map.filled[0][i] != '1')
+        if (init_game->map.grid[0][i] != '1')
             //ft_error("");
-        else if (init_game->map.filled[init_game->map.rows - 1] != '1')
+        else if (init_game->map.grid[init_game->map.rows - 1] != '1')
             //ft_error("");
         i++;
     }
@@ -45,15 +45,19 @@ void    ft_check_items(t_game *init_game)
         a = 0;
         while (a++ < init_game->map.columns)
         {
-            if (init_game->map.filled[i][a] == 'C')
+            if (init_game->map.grid[i][a] == 'C')
                 init_game->count.collectibles++;
-            else if (init_game->map.filled[i][a] == 'P')
+            else if (init_game->map.grid[i][a] == 'P')
+            {
                 init_game->count.player++;
-            else if (init_game->map.filled[i][a] == 'E')
+                init_game->player.x = a;
+                init_game->player.y = i;
+            }
+            else if (init_game->map.grid[i][a] == 'E')
                 init_game->count.exit++;
-            else if (init_game->map.filled[i][a] == '1')
+            else if (init_game->map.grid[i][a] == '1')
                 init_game->count.wall++;
-            else if (init_game->map.filled[i][a] == '0')
+            else if (init_game->map.grid[i][a] == '0')
                 init_game->count.floor++;
             else
                 //ft_error("Error: Unrecognized character!")

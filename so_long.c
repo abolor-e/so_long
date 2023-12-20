@@ -6,7 +6,7 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:59:02 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/18 20:46:56 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:23:07 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int	main(int ac, char **av)
 		ft_init_map(av[1], init_game);
 		ft_map_check(init_game);
 		ft_init_window(init_game);
-
+		ft_recognize_mapsprite(init_game);
+		mlx_hook(init_game->mlx_window, Keypress, KeyPressMask, ft_check_key, init_game);
+		mlx_hook(init_game->mlx_window, DestroyNotify, ButtonPressMask, /*ft_...*/, init_game);
+		mlx_hook(init_game->mlx_window, Expose, Exposuremask, ft_recognize_mapsprite, init_game);
+		mlx_loop(init_game->mlx_ptr);
+		/* free function*/
 	}
 }

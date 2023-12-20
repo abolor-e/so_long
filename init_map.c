@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abolor-e <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:37:48 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/18 17:52:02 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/20 12:11:51 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	ft_parse_map(t_game *init_game, int m_fd)
 		init_game->map.rows++;
 	}
 	ft_check_newline(line_tmp, init_game);
-	init_game->map.filled = ft_split(line_tmp, '\n');
+	init_game->map.grid = ft_split(line_tmp, '\n');
 	free(line_tmp);
 }
 
