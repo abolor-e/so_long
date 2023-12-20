@@ -46,7 +46,7 @@ void    ft_recognize_mapsprite(t_game *init_game)
     }
 }
 
-ft_player_movement(t_game *init_game, int y, int x)
+void    ft_player_movement(t_game *init_game, int y, int x)
 {
     int moved_y;
     int moved_x;

@@ -6,7 +6,7 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:37:48 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/20 18:16:27 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:10:28 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ void	ft_init_map(char *av, t_game *init_game)
 	ft_parse_map(init_game, m_fd);
 	close(m_fd);
 	init_game->game_alloc = 1;
-	//ft_init_count(init_game);
+	ft_init_count(init_game);
 }

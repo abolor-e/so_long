@@ -11,15 +11,16 @@ SRCS =	so_long.c	\
 		init_map_sprite.c	\
 		utils.c
 
+OBJS = $(SRCS:.c=.o)
+
 CFLAGS =  -Wall -Werror -Wextra
+
 CC		= cc
 
 RM		= rm -rf
 
-OBJS = $(SRCS:.c=.o)
-
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 all: $(NAME)
 
