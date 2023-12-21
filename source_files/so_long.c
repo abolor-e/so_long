@@ -6,13 +6,11 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:59:02 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/20 18:00:22 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:40:01 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-int    ft_check_key(int key, t_game *init_game);
+#include "../so_long.h"
 
 int	main(int ac, char **av)
 {
@@ -28,14 +26,16 @@ int	main(int ac, char **av)
 	{
 		if (ft_check_map_validity(av) == 0)
 			ft_handle_error("Error: Map extension wrong <map.berg>!\n", init_game);
-		ft_init_map(av[1], init_game);
+		ft_init_map(init_game, av[1]);
+		ft_init_count(init_game);
+		ft_printf("game_alloc = %d\n", init_game->game_alloc);
 		ft_map_check(init_game);
 		ft_init_window(init_game);
 		ft_recognize_mapsprite(init_game);
 		mlx_hook(init_game->mlx_window, KEY_RELEASE, KEY_RELEASE_MASK, ft_check_key, init_game);
-		mlx_hook(init_game->mlx_window, DESTROY_NOTIFY, NO_EVENT_MASK, /*ft_...*/, init_game);
+		mlx_hook(init_game->mlx_window, DESTROY_NOTIFY, NO_EVENT_MASK, ft_quit_game, init_game);
 		mlx_hook(init_game->mlx_window, EXPOSE, EXPOSURE_MASK, ft_recognize_mapsprite, init_game);
 		mlx_loop(init_game->mlx_ptr);
-		/* free function*/
+		ft_free_allocated_memory(init_game);
 	}
 }

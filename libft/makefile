@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abolor-e <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/22 13:51:08 by abolor-e          #+#    #+#              #
-#    Updated: 2023/10/25 14:19:46 by abolor-e         ###   ########.fr        #
+#    Updated: 2023/12/21 14:26:15 by abolor-e         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,18 @@ SRCS		= ft_isalpha.c	\
 			  ft_putchar_fd.c	\
 			  ft_putstr_fd.c	\
 			  ft_putendl_fd.c	\
-			  ft_putnbr_fd.c
+			  ft_putnbr_fd.c	\
+			  get_next_line.c \
+			  ft_lowhexa.c \
+			  ft_nputchar.c \
+			  ft_nputnbr.c \
+			  ft_nputstr.c \
+			  ft_pputnbr.c \
+			  ft_printf.c \
+			  ft_putaddr.c \
+			  ft_upphexa.c 
+			  
+			  
 
 SRCS_BONUS	= ft_lstnew.c	\
 			  ft_lstadd_front.c	\

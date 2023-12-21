@@ -1,41 +1,39 @@
 NAME = so_long
-
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g3 -g -fsanitize=address
+MLXFLAGS = -L ./minilibx -lmlx -framework OpenGl -framework Appkit
 LIBFT = ./libft/libft.a
+LIBFTDIR = ./libft
+MINILIBX_PATH = ./minilibx
+MINILIBX = ./minilibx/libmlx.a
+SRC = source_files/init_map_sprite.c \
+	  source_files/init_map1.c \
+	  source_files/init_window.c \
+	  source_files/map_check1.c \
+	  source_files/so_long.c \
+	  source_files/utils.c \
+	  source_files/free_error.c
 
-# Don't forget to add gnl to libft!
+OBJ = $(SRC:.c=.o)
 
-SRCS =	so_long.c	\
-		init_map.c	\
-		map_check.c	\
-		init_window.c	\
-		init_map_sprite.c	\
-		utils.c
+all: ${NAME}
 
-OBJS = $(SRCS:.c=.o)
-
-CFLAGS =  -Wall -Werror -Wextra
-
-CC		= cc
-
-RM		= rm -rf
-
-%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-all: $(NAME)
-
-${LIBFT}:
-	${MAKE} -C ./libft
-
-$(NAME): $(OBJECTS) ${LIBFT}
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+${NAME}: $(OBJ)
+		$(MAKE) --no-print-directory -C $(MINILIBX_PATH)
+		@echo "Minilibx compilation success!"
+		$(MAKE) -C $(LIBFTDIR)
+		$(CC) $(CFLAGS) -lm $(SRC) $(MLXFLAGS) $(LIBFT) -o $(NAME)
+		@echo "./so_long created!"
 
 clean:
-	${MAKE} clean -C ./libft
-	${RM} ${OBJS}
+		$(MAKE) clean -C ./libft
+		$(MAKE) clean -C ./minilibx
+		@rm -rf $(OBJ)
 
 fclean: clean
-	${MAKE} fclean -C ./libft
-	${RM} $(NAME)
+		$(MAKE) fclean -C ./libft
+		@rm -rf $(NAME) $(OBJ)
 
-re: fclean $(NAME)
+re: fclean all
+
+.PHONY: all clean fclean re

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_nputchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/16 11:58:05 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/21 13:36:57 by abolor-e         ###   ########.fr       */
+/*   Created: 2023/11/13 15:28:15 by abolor-e          #+#    #+#             */
+/*   Updated: 2023/12/21 14:20:25 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_nputchar(char c, int *count)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	*count += 1;
+	return (write(1, &c, 1));
 }

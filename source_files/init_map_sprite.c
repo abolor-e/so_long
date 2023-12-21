@@ -1,9 +1,9 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 void    ft_render(t_game *init_game, void *image, int x, int y)
 {
     mlx_put_image_to_window (init_game->mlx_ptr, init_game->mlx_window, 
-    image, y * init_game->graphic.img_width, x * init_game->graphic.img_height);
+    image, y * 64, x * 64);
 }
 
 void    ft_sprite(t_game *init_game, int y, int x)
@@ -11,9 +11,8 @@ void    ft_sprite(t_game *init_game, int y, int x)
     char    c;
 
     c = init_game->map.grid[y][x];
-    if (c == '0')
-        ft_render(init_game, init_game->graphic.floor, y, x);
-    else if (c == '1')
+    ft_render(init_game, init_game->graphic.floor, y, x);
+    if (c == '1')
         ft_render(init_game, init_game->graphic.wall, y, x);
     else if (c == 'P')
         ft_render(init_game, init_game->graphic.player_front, y, x);
@@ -28,7 +27,7 @@ void    ft_sprite(t_game *init_game, int y, int x)
         ft_render(init_game, init_game->graphic.collectibles, y, x);
 }
 
-void    ft_recognize_mapsprite(t_game *init_game)
+int    ft_recognize_mapsprite(t_game *init_game)
 {
     int x;
     int y;
@@ -44,6 +43,7 @@ void    ft_recognize_mapsprite(t_game *init_game)
         }
         y++;
     }
+    return (0);
 }
 
 void    ft_player_movement(t_game *init_game, int y, int x)
@@ -65,7 +65,7 @@ void    ft_player_movement(t_game *init_game, int y, int x)
     }
     else if (init_game->map.grid[y][x] == 'E' && init_game->count.collectibles == 0)
     {
-        //ft_win();
+        ft_win(init_game);
     }
         ft_recognize_mapsprite(init_game);
 }
@@ -77,7 +77,7 @@ int    ft_check_key(int key, t_game *init_game)
     else if (key == KEY_A)
         ft_player_movement(init_game, init_game->player.y, init_game->player.x - 1);
     else if (key == KEY_W)
-        ft_player_mevement(init_game, init_game->player.y - 1, init_game->player.x);
+        ft_player_movement(init_game, init_game->player.y - 1, init_game->player.x);
     else if (key == KEY_S)
         ft_player_movement(init_game, init_game->player.y + 1, init_game->player.x);
     else if (key == KEY_D)

@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "../so_long.h"
 
 // Checks if there are correct numbers of items in the map!
 void    ft_item_number(t_game *init_game)
@@ -38,6 +38,7 @@ void    ft_check_items(t_game *init_game)
                 init_game->count.floor++;
             else
                 ft_handle_error("Error: Unrecognized character inside the map!\n", init_game);
+            ft_printf("%d, %d, %d, %d, %d\n", init_game->count.collectibles, init_game->count.player, init_game->count.exit, init_game->count.wall, init_game->count.floor);
         }
     }
 }
@@ -51,18 +52,18 @@ void    ft_check_row_column(t_game *init_game)
     while (i < init_game->map.rows)
     {
         if (init_game->map.grid[i][0] != '1')
-            ft_handle_error("Error: Map should be surrounded by walls!\n", init_game);
+            ft_handle_error("Error: Map should be surrounded by walls (left side)!\n", init_game);
         else if (init_game->map.grid[i][init_game->map.columns - 1] != '1')
-            ft_handle_error("Error: Map should be surrounded by walls!\n", init_game);
+            ft_handle_error("Error: Map should be surrounded by walls (right side)!\n", init_game);
         i++;
     }
     i = 0;
     while (i < init_game->map.columns)
     {
         if (init_game->map.grid[0][i] != '1')
-            ft_handle_error("Error: Map should be surrounded by walls!\n", init_game);
-        else if (init_game->map.grid[init_game->map.rows - 1] != '1')
-            ft_handle_error("Error: Map should be surrounded by walls!\n", init_game);
+            ft_handle_error("Error: Map should be surrounded by walls (top wall)!\n", init_game);
+        else if (init_game->map.grid[init_game->map.rows - 1][i] != '1')
+            ft_handle_error("Error: Map should be surrounded by walls (bottom wall)!\n", init_game);
         i++;
     }
 }

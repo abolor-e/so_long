@@ -6,11 +6,11 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 11:58:57 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/20 18:20:19 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:36:54 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 void	ft_to_image(t_game *init_game, void **image, char *location)
 {
@@ -24,15 +24,12 @@ void	ft_to_image(t_game *init_game, void **image, char *location)
 
 void	ft_init_sprite(t_game *init_game)
 {
-	ft_to_image(init_game, &init_game->graphic.wall, "resources/wall.xpm");
-	ft_to_image(init_game, &init_game->graphic.floor, "resources/floor.xpm");
-	ft_to_image(init_game, &init_game->graphic.collectibles, "resources/bank.xpm");
-	//ft_to_image(init_game, &init_game->graphic.open_exit, ...);
-	//ft_to_image(init_game, &init_game->graphic.closed_exit, ...);
-	//ft_to_image(init_game, &init_game->graphic.player_right, ...);
-	//ft_to_image(init_game, &init_game->graphic.player_left, ...);
-	ft_to_image(init_game, &init_game->graphic.player_front, "resources/thief.xpm");
-	//ft_to_image(init_game, &init_game->graphic.player_back, ...);
+	ft_to_image(init_game, &init_game->graphic.wall, "game_images/wall.xpm");
+	ft_to_image(init_game, &init_game->graphic.floor, "game_images/floor.xpm");
+	ft_to_image(init_game, &init_game->graphic.collectibles, "game_images/collectibles.xpm");
+	ft_to_image(init_game, &init_game->graphic.open_exit, "game_images/open_exit.xpm");
+	ft_to_image(init_game, &init_game->graphic.closed_exit, "game_images/closed_exit.xpm");
+	ft_to_image(init_game, &init_game->graphic.player_front, "game_images/thief.xpm");
 }
 
 void	ft_init_window(t_game *init_game)
@@ -45,10 +42,9 @@ void	ft_init_window(t_game *init_game)
 	}
 	ft_init_sprite(init_game);
 	init_game->mlx_window = mlx_new_window(init_game->mlx_ptr, \
-	init_game->map.columns * IMG_WIDTH, init_game->map.rows * IMG_HEIGHT, "so_long");
+	init_game->map.columns * 64, init_game->map.rows * 64, "so_long");
 	if (!init_game->mlx_window)
 	{
-		//mlx_destroy_display(init_game->mlx_ptr);
 		free(init_game->mlx_ptr);
 		ft_handle_error("Error: Window cannot be initialized!\n", init_game);
 	}
