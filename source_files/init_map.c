@@ -6,7 +6,7 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:37:48 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/21 15:37:49 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:20:32 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ static void	ft_map_parse(t_game *init_game, int m_fd)
 	}
 	ft_check_newline(line_tmp, init_game);
 	init_game->map.grid = ft_split(line_tmp, '\n');
-
-	ft_printf("map grid = %s\n", init_game->map.grid);
-	
 	free(line_tmp);
 }
 

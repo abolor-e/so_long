@@ -41,7 +41,7 @@ void    ft_free_allocated_memory(t_game *init_game)
     mlx_destroy_window(init_game->mlx_ptr, init_game->mlx_window);
     //mlx_destroy_display(init_game->mlx_ptr);
     free(init_game->mlx_ptr);
-    free(init_game);   
+    free(init_game); 
 }
 
 int ft_quit_game(t_game *init_game)

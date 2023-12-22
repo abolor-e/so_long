@@ -75,26 +75,26 @@ typedef struct	s_game_instance
 }				t_game;
 
 int	ft_check_map_validity(char **av);
-//void	ft_init_map(char *av, t_game *init_game);
-//char	*ft_add_gnlmap(char **line_tmp, char *next_line);
-//void	ft_check_newline(char *line_tmp, t_game *init_game);
+void	ft_init_map(char *av, t_game *init_game);
+char	*ft_add_gnlmap(char **line_tmp, char *next_line);
+void	ft_check_newline(char *line_tmp, t_game *init_game);
 
-char	*ft_strappend(char **s1, const char *s2);
-void	ft_check_for_empty_line(char *map, t_game *game);
-void	ft_init_map(t_game *game, char *av);
+//char	*ft_strappend(char **s1, const char *s2);
+//void	ft_check_for_empty_line(char *map, t_game *game);
+//void	ft_init_map(char *av, t_game *game);
 
 
 void	ft_init_count(t_game *init_game);
+
 void	ft_map_check(t_game *init_game);
+void	ft_check_row_columns(t_game *init_game);
+void	ft_check_items(t_game *init_game);
+void	ft_item_number(t_game *init_game);
 
-//void	ft_check_row_columns(t_game *init_game);
-//void	ft_check_items(t_game *init_game);
-//void	ft_item_number(t_game *init_game);
-
-void	ft_check_rows(t_game *init_game);
-void	ft_check_columns(t_game *init_game);
-void	ft_count_map_parameters(t_game *init_game);
-void	ft_verify_map_parameters(t_game *init_game);
+//void	ft_check_rows(t_game *init_game);
+//void	ft_check_columns(t_game *init_game);
+//void	ft_count_map_parameters(t_game *init_game);
+//void	ft_verify_map_parameters(t_game *init_game);
 
 void	ft_init_window(t_game *init_game);
 void	ft_init_sprite(t_game *init_game);

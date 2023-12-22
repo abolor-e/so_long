@@ -1,67 +1,106 @@
-#include "libft.h"	
+#include "libft.h"
 
-static char	*function_name(int fd, char *buf, char *backup)
+void	prep_for_next_line(t_gnl **list)
 {
-	int		read_line;
-	char	*char_temp;
+	t_gnl	*last_node;
+	t_gnl	*new_node;
+	char	*str;
+	int		i;
+	int		a;
 
-	read_line = 1;
-	while (read_line != '\0')
-	{
-		read_line = read(fd, buf, BUFFER_SIZE);
-		if (read_line == -1)
-			return (0);
-		else if (read_line == 0)
-			break ;
-		buf[read_line] = '\0';
-		if (!backup)
-			backup = ft_strdup("");
-		char_temp = backup;
-		backup = ft_strjoin(char_temp, buf);
-		free(char_temp);
-		char_temp = NULL;
-		if (ft_strchr (buf, '\n'))
-			break ;
-	}
-	return (backup);
+	a = 0;
+	i = 0;
+	str = malloc(BUFFER_SIZE + 1);
+	last_node = ft_lstlast(*list);
+	new_node = malloc(sizeof(t_gnl));
+	if (!new_node || !str)
+		return ;
+	while (last_node->str_buf[i] && last_node->str_buf[i] != '\n')
+		++i;
+	while (last_node->str_buf[i] && last_node->str_buf[++i])
+		str[a++] = last_node->str_buf[i];
+	str[a] = '\0';
+	new_node->str_buf = str;
+	new_node->next = NULL;
+	free_list(list, new_node, str);
 }
 
-static char	*extract(char *line)
+char	*get_until_newline(t_gnl *list)
 {
-	size_t	count;
-	char	*backup;
+	char	*new_str;
+	int		str_len;
 
-	count = 0;
-	while (line[count] != '\n' && line[count] != '\0')
-		count++;
-	if (line[count] == '\0' || line[1] == '\0')
-		return (0);
-	backup = ft_substr(line, count + 1, ft_strlen(line) - count);
-	if (*backup == '\0')
+	if (!list)
+		return (NULL);
+	str_len = len_until_newline(list);
+	new_str = malloc(str_len + 1);
+	if (!new_str)
+		return (NULL);
+	copy(list, new_str);
+	return (new_str);
+}
+
+void	include_list(t_gnl **list, char *res)
+{
+	t_gnl	*new_node;
+	t_gnl	*last_node;
+
+	new_node = malloc(sizeof(t_gnl));
+	if (!new_node)
+		return ;
+	last_node = ft_lstlast(*list);
+	if (last_node == NULL)
+		*list = new_node;
+	else
+		last_node->next = new_node;
+	new_node->str_buf = res;
+	new_node->next = NULL;
+}
+
+void	create_buffer_list(t_gnl **list, int fd)
+{
+	char	*res;
+	int		char_read;
+
+	while (!newline_check_list(*list))
 	{
-		free(backup);
-		backup = NULL;
+		res = malloc(BUFFER_SIZE + 1);
+		if (!res)
+			return ;
+		char_read = read(fd, res, BUFFER_SIZE);
+		if (!char_read)
+		{
+			free(res);
+			return ;
+		}
+		else if (char_read < 0)
+		{
+			free(res);
+			if (list)
+				free_list(list, NULL, NULL);
+			return ;
+		}
+		res[char_read] = '\0';
+		include_list(list, res);
 	}
-	line[count + 1] = '\0';
-	return (backup);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	char		*buf;
-	static char	*backup;
+	char			*next_line;
+	static t_gnl	*list = NULL;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (0);
-	line = function_name(fd, buf, backup);
-	free(buf);
-	buf = NULL;
-	if (!line)
 		return (NULL);
-	backup = extract(line);
-	return (line);
+	create_buffer_list(&list, fd);
+	if (list == NULL)
+		return (NULL);
+	next_line = get_until_newline(list);
+	if (!next_line)
+	{
+		free_list(&list, NULL, NULL);
+		return (NULL);
+	}
+	prep_for_next_line(&list);
+	return (next_line);
 }

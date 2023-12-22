@@ -7,9 +7,9 @@ LIBFTDIR = ./libft
 MINILIBX_PATH = ./minilibx
 MINILIBX = ./minilibx/libmlx.a
 SRC = source_files/init_map_sprite.c \
-	  source_files/init_map1.c \
+	  source_files/init_map.c \
 	  source_files/init_window.c \
-	  source_files/map_check1.c \
+	  source_files/map_check.c \
 	  source_files/so_long.c \
 	  source_files/utils.c \
 	  source_files/free_error.c

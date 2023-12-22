@@ -17,10 +17,10 @@ void    ft_check_items(t_game *init_game)
     int a;
 
     i = 0;
-    while (i++ < init_game->map.rows)
+    while (i < init_game->map.rows)
     {
         a = 0;
-        while (a++ < init_game->map.columns)
+        while (a < init_game->map.columns)
         {
             if (init_game->map.grid[i][a] == 'C')
                 init_game->count.collectibles++;
@@ -39,7 +39,9 @@ void    ft_check_items(t_game *init_game)
             else
                 ft_handle_error("Error: Unrecognized character inside the map!\n", init_game);
             ft_printf("%d, %d, %d, %d, %d\n", init_game->count.collectibles, init_game->count.player, init_game->count.exit, init_game->count.wall, init_game->count.floor);
+            a++;
         }
+        i++;
     }
 }
 

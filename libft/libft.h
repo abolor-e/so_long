@@ -6,7 +6,7 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:02:11 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/21 14:45:17 by abolor-e         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:46:02 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 10
 # endif
 
 # include <unistd.h>
@@ -55,11 +55,28 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
-char	*get_next_line(int fd);
+// Structure for gnl!
+typedef struct s_gnl
+{
+	char			*str_buf;
+	struct s_gnl	*next;
+}				t_gnl;
 
+// get_next_line functions!
+char	*get_next_line(int fd);
+void	create_buffer_list(t_gnl **list, int fd);
+void	include_list(t_gnl **list, char *res);
+char	*get_until_newline(t_gnl *list);
+void	prep_for_next_line(t_gnl **list);
+int		newline_check_list(t_gnl *list);
+int		len_until_newline(t_gnl *list);
+void	copy(t_gnl *list, char *new_str);
+void	free_list(t_gnl **list, t_gnl *new_node, char *str);
+t_gnl	*ft_lstlast(t_gnl *list);
+
+// Printf functions!
 int		ft_printf(const char *format, ...);
 int		ft_vprint(const char *fmt, va_list args, int *count);
 int		check(unsigned long args, char c, int *count);
@@ -83,7 +100,6 @@ void	ft_putnbr_fd(int n, int fd);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
