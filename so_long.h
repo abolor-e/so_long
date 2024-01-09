@@ -28,6 +28,13 @@
 # define FAILURE	-1
 # define SUCCESS	0
 
+// Struct for parsing through the map!
+typedef struct s_parse_count
+{
+	int	collectibles;
+	int	exit;
+}				t_parse_count;
+
 typedef struct	s_player
 {
 	int	x;

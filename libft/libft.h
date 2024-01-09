@@ -6,22 +6,33 @@
 /*   By: abolor-e <abolor-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 13:02:11 by abolor-e          #+#    #+#             */
-/*   Updated: 2023/12/22 16:46:02 by abolor-e         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:43:37 by abolor-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
+/*
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
+*/
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# elif BUFFER_SIZE != 1
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
 # include <limits.h>
 # include <fcntl.h>
+
+char	*get_next_line(int fd);
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -57,6 +68,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
+/*
 // Structure for gnl!
 typedef struct s_gnl
 {
@@ -75,6 +87,7 @@ int		len_until_newline(t_gnl *list);
 void	copy(t_gnl *list, char *new_str);
 void	free_list(t_gnl **list, t_gnl *new_node, char *str);
 t_gnl	*ft_lstlast(t_gnl *list);
+*/
 
 // Printf functions!
 int		ft_printf(const char *format, ...);

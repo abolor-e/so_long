@@ -1,67 +1,37 @@
-
-
-static char	*function_name(int fd, char *buf, char *backup)
-{
-	int		read_line;
-	char	*char_temp;
-
-	read_line = 1;
-	while (read_line != '\0')
-	{
-		read_line = read(fd, buf, BUFFER_SIZE);
-		if (read_line == -1)
-			return (0);
-		else if (read_line == 0)
-			break ;
-		buf[read_line] = '\0';
-		if (!backup)
-			backup = ft_strdup("");
-		char_temp = backup;
-		backup = ft_strjoin(char_temp, buf);
-		free(char_temp);
-		char_temp = NULL;
-		if (ft_strchr (buf, '\n'))
-			break ;
-	}
-	return (backup);
-}
-
-static char	*extract(char *line)
-{
-	size_t	count;
-	char	*backup;
-
-	count = 0;
-	while (line[count] != '\n' && line[count] != '\0')
-		count++;
-	if (line[count] == '\0' || line[1] == '\0')
-		return (0);
-	backup = ft_substr(line, count + 1, ft_strlen(line) - count);
-	if (*backup == '\0')
-	{
-		free(backup);
-		backup = NULL;
-	}
-	line[count + 1] = '\0';
-	return (backup);
-}
+#include "libft.h"
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	char		*buf;
-	static char	*backup;
+	int	i = 0;
+	char	buff[0];
+	char	tmp[8000000];
+	char	*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buf)
-		return (0);
-	line = function_name(fd, buf, backup);
-	free(buf);
-	buf = NULL;
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	tmp[0] = '\0';
+	while (read(fd, buff, BUFFER_SIZE) == 1)
+	{
+		tmp[i] = buff[0];
+		tmp[i + 1] = '\0';
+		if (tmp[i] == '\n')
+		{
+			i++;
+			break;
+		}
+		i++;
+	}
+	if (tmp[0] == '\0')
+		return (NULL);
+	line = malloc(i + 1);
 	if (!line)
 		return (NULL);
-	backup = extract(line);
+	i = 0;
+	while (tmp[i])
+	{
+		line[i] = tmp[i];
+		i++;
+	}
+	line[i] = '\0';
 	return (line);
 }

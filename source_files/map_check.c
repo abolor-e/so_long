@@ -1,5 +1,12 @@
 #include "../so_long.h"
 
+// Parsing through the map!
+/*
+void    ft_parse_map(t_game *init_game, int x, int y)
+{
+    if (x < 0 || y < 0 || x >= init_game->map.columns || y >= init_game->map.rows || )
+}
+*/
 // Checks if there are correct numbers of items in the map!
 void    ft_item_number(t_game *init_game)
 {
@@ -13,7 +20,7 @@ void    ft_item_number(t_game *init_game)
 
 void    ft_check_items(t_game *init_game)
 {
-    int i;
+	int i;
     int a;
 
     i = 0;

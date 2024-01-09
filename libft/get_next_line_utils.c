@@ -1,5 +1,5 @@
 #include "libft.h"
-
+/*
 void	free_list(t_gnl **list, t_gnl *new_node, char *str)
 {
 	t_gnl	*tmp;
@@ -22,6 +22,29 @@ void	free_list(t_gnl **list, t_gnl *new_node, char *str)
 	{
 		free(new_node);
 	}
+    free(str);
+}
+*/
+
+void	free_list(t_gnl **list, t_gnl *new_node, char *str)
+{
+	t_gnl	*tmp;
+
+	if (!(*list))
+		return ;
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free((*list)->str_buf);
+		free(*list);
+		*list = tmp;
+	}
+	if (new_node)
+	{
+		if (new_node->str_buf)
+			free(new_node->str_buf);
+		free(new_node);
+	}	
     free(str);
 }
 
